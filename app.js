@@ -26,8 +26,12 @@ class App {
             if (err) {
                 throw new Error("Can't find active network interface (disconnected?)")
             }
-        
-            const device = Cap.findDevice(obj.ip_address);
+
+            let device = obj.name;
+
+            if ('ip_address' in obj) {
+                device = Cap.findDevice(obj.ip_address);
+            }
             const filter = 'udp and port 5056';
             const bufSize = 10 * 1024 * 1024;
 
